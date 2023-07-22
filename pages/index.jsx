@@ -3,6 +3,7 @@ import Advantages from "../sections/homepage/Advantages";
 import Services from "../sections/homepage/Services";
 import RegisterNow from "../sections/homepage/RegisterNow";
 import Plans from "../sections/homepage/Plans";
+import Contact from "../sections/homepage/Contact";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <Services />
       <RegisterNow />
       <Plans />
+      <Contact />
     </>
   );
 }
