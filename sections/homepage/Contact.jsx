@@ -13,8 +13,8 @@ const Contact = () => {
       bgColor="#191919"
     >
       <Flex direction="row" justify="center" gap="5rem" flexWrap="wrap">
-        {contacts.map((item) => (
-          <Card {...item} />
+        {contacts.map((item, index) => (
+          <Card key={index} {...item} />
         ))}
       </Flex>
     </SectionLayout>

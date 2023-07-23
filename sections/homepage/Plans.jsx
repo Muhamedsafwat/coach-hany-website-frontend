@@ -11,8 +11,8 @@ const Plans = () => {
       bgColor="#0f0f0f"
     >
       <Flex gap="1rem" justify="space-around" flexWrap="wrap">
-        {plans.map((item) => (
-          <Card {...item} />
+        {plans.map((item, index) => (
+          <Card key={index} {...item} />
         ))}
       </Flex>
     </SectionLayout>
@@ -41,8 +41,8 @@ const Card = ({ duration, price, features }) => {
         <Text mb={5} fontWeight="bold" fontSize="3.2rem" color="brand">
           {price}
         </Text>
-        {features.map((item) => (
-          <Text fontWeight="light" mb={1}>
+        {features.map((item, index) => (
+          <Text key={index} fontWeight="light" mb={1}>
             {item}
           </Text>
         ))}

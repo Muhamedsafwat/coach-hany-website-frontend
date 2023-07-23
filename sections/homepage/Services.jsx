@@ -11,8 +11,8 @@ const Services = () => {
       bgColor="#191919"
     >
       <SimpleGrid justifyContent="center" minChildWidth="300px" spacing={10}>
-        {services.map((item) => (
-          <Card {...item} />
+        {services.map((item, index) => (
+          <Card key={index} {...item} />
         ))}
       </SimpleGrid>
     </SectionLayout>

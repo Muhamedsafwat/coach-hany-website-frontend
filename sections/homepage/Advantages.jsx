@@ -14,19 +14,15 @@ const Advantages = () => {
       bgColor="#0f0f0f"
     >
       <Flex direction="row" justify="space-around" flexWrap="wrap">
-        {cards.map((cardData) => (
-          <Card
-            title={cardData.title}
-            details={cardData.details}
-            icon={cardData.icon}
-          />
+        {cards.map((cardData, index) => (
+          <Card {...cardData} key={index} />
         ))}
       </Flex>
     </SectionLayout>
   );
 };
 
-const Card = (props) => {
+const Card = ({ icon, title, details }) => {
   return (
     <Stack marginBlock="2rem" maxW="300px" align="center" justify="center">
       <Box
@@ -37,12 +33,12 @@ const Card = (props) => {
         color="brand"
         _hover={{ bgColor: "brand", color: "white" }}
       >
-        {props.icon}
+        {icon}
       </Box>
       <Text fontWeight="700" fontSize="1.2rem">
-        {props.title}
+        {title}
       </Text>
-      <Text>{props.details}</Text>
+      <Text>{details}</Text>
     </Stack>
   );
 };

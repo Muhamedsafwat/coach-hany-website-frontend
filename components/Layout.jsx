@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <Box overFlow="hidden">{children}</Box>
+      <Box overflow="hidden">{children}</Box>
       <Box
         borderTop="1px"
         borderTopColor="#333"
