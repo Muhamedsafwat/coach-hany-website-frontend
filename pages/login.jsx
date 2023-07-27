@@ -25,11 +25,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import loginFormValidator from "../validators/loginFormValidator";
+import loginHandler from "../handlers/loginHandler";
 
 const Login = () => {
   //show password
   const [showPass, setShowPass] = useState(false);
   const showClickHandler = () => setShowPass(!showPass);
+
+  //loading state
+  const [isLoading, setIsLoading] = useState(false);
 
   //form validation
   const {
@@ -40,7 +44,7 @@ const Login = () => {
 
   //form submit handler
   const onSubmit = (data) => {
-    console.log(data);
+    loginHandler(data);
   };
 
   return (
