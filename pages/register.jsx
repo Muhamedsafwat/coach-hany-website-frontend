@@ -56,21 +56,24 @@ const Register = () => {
   };
 
   return (
-    <Box pt="9rem" pb="4rem" as="main">
+    <Stack pt="9rem" pb="4rem">
       <Box
-        zIndex="-1"
         position="fixed"
         top="0"
         left="0"
         w="100vw"
         h="100vh"
+        boxSizing="border-box"
         bgSize="cover"
+        bgPosition="center"
         bgRepeat="no-repeat"
         bg="url('/hero-2.jpg')"
       />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack margin="auto" w="50%" align="center">
-          <Heading size="lg">Join us and become the next hero!</Heading>
+        <Stack margin="auto" w="90vw" maxWidth="700px" align="center">
+          <Heading zIndex={2} size="lg">
+            Join us and become the next hero!
+          </Heading>
           <StyledFormControl error={errors.name} label="الاسم ثلاثي">
             <Input variant="flushed" type="text" {...register("name")} />
             {errors.name && <FormErrorMessage>Required field</FormErrorMessage>}
@@ -299,7 +302,7 @@ const Register = () => {
           </Button>
         </Stack>
       </form>
-    </Box>
+    </Stack>
   );
 };
 

@@ -31,8 +31,9 @@ const Header = () => {
       left="0"
       right="0"
       zIndex={2}
-      paddingBlock={8}
+      paddingBlock={5}
       paddingInline={["1vw", "1vw", "3vw"]}
+      boxSizing="border-box"
     >
       <Stack direction="row" justify="space-between">
         <Box w="150px">
@@ -141,8 +142,8 @@ const links = [
   { label: "Home", path: "/" },
   { label: "Services", path: "#" },
   { label: "About", path: "#" },
-  { label: "Join us", path: "#" },
-  { label: "Login", path: "#" },
+  { label: "Join us", path: "/register" },
+  { label: "Login", path: "/login" },
 ];
 
 //social media links

@@ -10,6 +10,10 @@ const Footer = () => {
       padding="1rem"
       as="footer"
       textAlign="center"
+      position="absolute"
+      bottom="0"
+      left="0"
+      right="0"
     >
       <Text fontSize=".9rem">
         Copyright ©2023 All rights reserved | This template is made with by
