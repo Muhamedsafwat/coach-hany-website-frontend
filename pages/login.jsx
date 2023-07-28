@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   Stack,
   Heading,
@@ -12,6 +13,7 @@ import {
   Button,
   IconButton,
   FormErrorMessage,
+  useToast,
 } from "@chakra-ui/react";
 
 import {
@@ -21,13 +23,26 @@ import {
   AiOutlineEye,
 } from "react-icons/ai";
 
+import axios from "axios";
+
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import loginFormValidator from "../validators/loginFormValidator";
-import loginHandler from "../handlers/loginHandler";
+
+import { UserInfo } from "../authContext";
 
 const Login = () => {
+  //user context
+  const { user, login } = useContext(UserInfo);
+
+  //redirect if user logged in
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+  }, [user]);
+
   //show password
   const [showPass, setShowPass] = useState(false);
   const showClickHandler = () => setShowPass(!showPass);
@@ -43,8 +58,27 @@ const Login = () => {
   } = useForm({ resolver: yupResolver(loginFormValidator) });
 
   //form submit handler
+  const toast = useToast();
+  const router = useRouter();
+
   const onSubmit = (data) => {
-    loginHandler(data);
+    setIsLoading(true);
+    axios
+      .post("http://localhost:5000/api/users/auth", data)
+      .then((res) => {
+        login(res.data);
+        router.push("/profile");
+      })
+      .catch((err) => {
+        toast({
+          title: "Network error",
+          description: "please check your internet connection",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+        setIsLoading(false);
+      });
   };
 
   return (
@@ -59,7 +93,11 @@ const Login = () => {
           p="2rem"
         >
           <Heading>Login</Heading>
-          <FormControl isInvalid={errors.code} marginBlock="1rem">
+          <FormControl
+            isDisabled={isLoading}
+            isInvalid={errors.code}
+            marginBlock="1rem"
+          >
             <InputGroup>
               <InputLeftElement>
                 <AiOutlineUser />
@@ -74,7 +112,7 @@ const Login = () => {
             </InputGroup>
             {errors.code && <FormErrorMessage>Required field</FormErrorMessage>}
           </FormControl>
-          <FormControl isInvalid={errors.password}>
+          <FormControl isDisabled={isLoading} isInvalid={errors.password}>
             <InputGroup>
               <InputLeftElement>
                 <AiOutlineLock />
@@ -106,7 +144,14 @@ const Login = () => {
               <Link href="/register">Join us</Link>
             </Text>
           </Text>
-          <Button mt="1rem" fontWeight="700" bg="brand" w="40%" type="submit">
+          <Button
+            isLoading={isLoading}
+            mt="1rem"
+            fontWeight="700"
+            bg="brand"
+            w="40%"
+            type="submit"
+          >
             Login
           </Button>
         </Stack>

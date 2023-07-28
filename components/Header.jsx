@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 import {
   Box,
@@ -19,6 +19,8 @@ import {
 } from "@chakra-ui/react";
 import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 import { FiMenu } from "react-icons/fi";
+
+import { UserInfo } from "../authContext";
 
 const Header = () => {
   const [mobileView] = useMediaQuery("(max-width: 900px)");
@@ -49,12 +51,22 @@ const Header = () => {
 
 //desktop navbar
 const DesktopNav = () => {
+  const { user, setUser } = useContext(UserInfo);
+
   return (
     <Stack flex={1} direction=" row ">
       <Stack flex={1} justify="center" direction="row" spacing={10}>
         {links.map((link, index) => (
           <NavItem key={index} props={link} />
         ))}
+        {user ? (
+          <NavItem props={{ label: "Profile", path: "/profile" }} />
+        ) : (
+          <>
+            <NavItem props={{ label: "Join us", path: "/register" }} />
+            <NavItem props={{ label: "Login", path: "/login" }} />
+          </>
+        )}
       </Stack>
       <Stack justify="flex-end" direction="row">
         {socialLinks.map((link, index) => (
@@ -142,8 +154,6 @@ const links = [
   { label: "Home", path: "/" },
   { label: "Services", path: "#" },
   { label: "About", path: "#" },
-  { label: "Join us", path: "/register" },
-  { label: "Login", path: "/login" },
 ];
 
 //social media links
