@@ -11,7 +11,7 @@ const ProtectedRoute = ({ children, allowedRole }) => {
   const checkRole = () => {
     if (user.code) {
       return "user";
-    } else if (user.userName) {
+    } else if (user.username) {
       return "admin";
     } else {
       return null;

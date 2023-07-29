@@ -1,10 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import {
   Stack,
   Heading,
-  Text,
   FormControl,
   Input,
   InputGroup,
@@ -39,7 +37,7 @@ const Login = () => {
   //redirect if user logged in
   useEffect(() => {
     if (user) {
-      router.push("/");
+      router.push("/admin");
     }
   }, [user]);
 
@@ -95,7 +93,7 @@ const Login = () => {
           <Heading>Admin Login</Heading>
           <FormControl
             isDisabled={isLoading}
-            isInvalid={errors.code}
+            isInvalid={errors.username}
             marginBlock="1rem"
           >
             <InputGroup>
@@ -103,14 +101,16 @@ const Login = () => {
                 <AiOutlineUser />
               </InputLeftElement>
               <Input
-                {...register("userName")}
+                {...register("username")}
                 focusBorderColor="brand"
                 placeholder="User name"
                 type="text"
                 variant="filled"
               />
             </InputGroup>
-            {errors.code && <FormErrorMessage>Required field</FormErrorMessage>}
+            {errors.userName && (
+              <FormErrorMessage>Required field</FormErrorMessage>
+            )}
           </FormControl>
           <FormControl isDisabled={isLoading} isInvalid={errors.password}>
             <InputGroup>
