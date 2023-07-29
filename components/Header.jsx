@@ -51,7 +51,7 @@ const Header = () => {
 
 //desktop navbar
 const DesktopNav = () => {
-  const { user, setUser } = useContext(UserInfo);
+  const { user } = useContext(UserInfo);
 
   return (
     <Stack flex={1} direction=" row ">
@@ -154,6 +154,7 @@ const links = [
   { label: "Home", path: "/" },
   { label: "Services", path: "#" },
   { label: "About", path: "#" },
+  { label: "Admin", path: "/admin" },
 ];
 
 //social media links
