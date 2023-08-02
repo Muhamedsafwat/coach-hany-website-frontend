@@ -1,75 +1,148 @@
-import React from "react";
-import { Stack, Box, Text, StackDivider } from "@chakra-ui/react";
+import React, { useContext, useState } from "react";
+
+import {
+  Stack,
+  Box,
+  Text,
+  useDisclosure,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  Button,
+  Flex,
+  Divider,
+} from "@chakra-ui/react";
+
+import { FiMenu } from "react-icons/fi";
+import {
+  AiOutlineForm,
+  AiOutlineUser,
+  AiOutlineDollar,
+  AiOutlineHome,
+  AiOutlineLogout,
+} from "react-icons/ai";
+
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import { AiOutlineForm, AiOutlineUser, AiOutlineDollar } from "react-icons/ai";
+import { UserInfo } from "../authContext";
+
+import Loading from "./Loading";
 
 const AdminLayout = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <>
-      <Header />
-      <Stack direction="row" bg="#0f0f0f" minH="100vh" as="main">
-        <NavBar />
-        {children}
-      </Stack>
+      <Header setIsLoading={setIsLoading} />
+      {isLoading ? <Loading /> : <>{children}</>}
     </>
   );
 };
 
-const Header = () => {
+const Header = ({ setIsLoading }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
+  //logout
+  const router = useRouter();
+  const { logout } = useContext(UserInfo);
+  const logoutHandler = () => {
+    setIsLoading(true);
+    router.push("/");
+    logout();
+  };
   return (
-    <Stack p="1rem" justify="space-between" direction="row">
-      <Text>Admin</Text>
-      <Stack direction="row">
-        <Link href="/admin">Dashboard</Link>
-        <StackDivider />
-        <Link href="/">Home page</Link>
-      </Stack>
+    <Stack
+      justify="space-between"
+      align="center"
+      paddingInline="3rem"
+      paddingBlock="1rem"
+      direction="row"
+      borderBottom="1px"
+      borderColor="#333"
+    >
+      <Box w="100px">
+        <Link href="/">
+          <img src="/logo.png" alt="logo" />
+        </Link>
+      </Box>
+      <Button
+        size="sm"
+        ref={btnRef}
+        color="brand"
+        onClick={onOpen}
+        variant="ghost"
+      >
+        <FiMenu size={20} />
+      </Button>
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay />
+        <DrawerContent bg="#151515">
+          <DrawerCloseButton />
+          <DrawerHeader>Admin Dashboard</DrawerHeader>
+
+          <DrawerBody>
+            <Stack spacing={0}>
+              {adminNavLinks.map((item, index) => {
+                return <NavItem onClose={onClose} key={index} {...item} />;
+              })}
+            </Stack>
+            <Divider marginBlock="10px" />
+            <NavItem
+              onClose={onClose}
+              label="Home page"
+              path="/"
+              icon={<AiOutlineHome />}
+            />
+            <Divider marginBlock="10px" />
+            <Box
+              onClick={logoutHandler}
+              cursor="pointer"
+              transition=".3s"
+              _hover={{ bg: "rgba(200,50,50,0.6)" }}
+              p="15px"
+              borderRadius={10}
+            >
+              <Flex gap="5px" align="center">
+                <AiOutlineLogout />
+                <Text>Logout</Text>
+              </Flex>
+            </Box>
+          </DrawerBody>
+        </DrawerContent>
+      </Drawer>
     </Stack>
   );
 };
 
-const NavBar = () => {
-  const router = useRouter();
-  const route = router.pathname;
-
-  const viewNav =
-    route == "/admin" ||
-    route == "/admin/plans" ||
-    route == "/admin/users" ||
-    route == "/admin/applications";
-
-  return viewNav ? (
-    <Stack spacing="0" bg="#191919" w="20vw">
-      {navLinks.map((item, index) => (
-        <NavLink key={index} {...item} />
-      ))}
-    </Stack>
-  ) : null;
-};
-
-const NavLink = ({ label, path, icon, isActive }) => {
+const NavItem = ({ label, path, icon, onClose }) => {
   return (
     <Box
+      onClick={onClose}
       transition=".3s"
-      borderWidth="1px 0 1px 0"
-      borderColor="#333"
-      paddingBlock="10px"
-      paddingInline="1rem"
-      _hover={{ paddingLeft: "1.2rem", bg: "#313131" }}
+      _hover={{ bg: "rgba(50,50,50,0.5)" }}
+      p="15px"
+      borderRadius={10}
     >
       <Link href={path}>
-        <Stack align="center" direction="row">
-          {icon} <Text> {label}</Text>
-        </Stack>
+        <Flex gap="5px" align="center">
+          {icon}
+          <Text>{label}</Text>
+        </Flex>
       </Link>
     </Box>
   );
 };
 
-const navLinks = [
-  { label: "Plans", path: "/admin/plans", icon: <AiOutlineDollar /> },
+const adminNavLinks = [
+  { label: "Plans", path: "/admin", icon: <AiOutlineDollar /> },
   {
     label: "Applications",
     path: "/admin/applications",
@@ -77,4 +150,5 @@ const navLinks = [
   },
   { label: "Users", path: "/admin/users", icon: <AiOutlineUser /> },
 ];
+
 export default AdminLayout;

@@ -61,20 +61,35 @@ const Login = () => {
 
   const onSubmit = (data) => {
     setIsLoading(true);
-    axios
+    const api = axios.create({
+      withCredentials: true,
+    });
+
+    api
       .post("http://localhost:5000/api/admin/auth", data)
       .then((res) => {
         login(res.data);
         router.push("/admin");
       })
       .catch((err) => {
-        toast({
-          title: "Network error",
-          description: "please check your internet connection",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
+        console.log(err);
+        if (err.response.status == 401) {
+          toast({
+            title: "Invalid data",
+            description: "Check username and password",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        } else {
+          toast({
+            title: "Network error",
+            description: "please check your internet connection",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        }
         setIsLoading(false);
       });
   };

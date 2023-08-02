@@ -1,13 +1,15 @@
 import React from "react";
+import { Heading, Box } from "@chakra-ui/react";
 
 import ProtectedRoute from "../../components/ProtectedRoute";
-
-const Dashboard = () => {
+const Plans = () => {
   return (
     <ProtectedRoute allowedRole="admin">
-      <div>Admin</div>
+      <Box mt="5rem">
+        <Heading>Dashboard</Heading>
+      </Box>
     </ProtectedRoute>
   );
 };
 
-export default Dashboard;
+export default Plans;

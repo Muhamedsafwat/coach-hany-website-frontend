@@ -4,9 +4,9 @@ import { Stack, Spinner, Heading } from "@chakra-ui/react";
 
 const Loading = () => {
   return (
-    <Stack h="90vh" align="center" justify="center">
+    <Stack h="50vh" align="center" justify="center">
       <Spinner color="brand" size="xl" />
-      <Heading size="lg">Loadin, please wait</Heading>
+      <Heading size="lg">Loading, please wait</Heading>
     </Stack>
   );
 };

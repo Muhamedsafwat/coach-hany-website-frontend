@@ -22,6 +22,11 @@ function Context({ children }) {
     setToken(user);
   };
 
+  //logout function to clear localStorage and context
+  const logout = () => {
+    setUser("");
+    setToken("");
+  };
   //check if user was logged in
   useEffect(() => {
     const token = getToken();
@@ -31,7 +36,9 @@ function Context({ children }) {
   }, []);
 
   return (
-    <UserInfo.Provider value={{ user, login }}>{children}</UserInfo.Provider>
+    <UserInfo.Provider value={{ user, login, logout }}>
+      {children}
+    </UserInfo.Provider>
   );
 }
 

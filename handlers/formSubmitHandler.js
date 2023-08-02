@@ -1,4 +1,14 @@
-const formSubmitHandler = (data, bodyImg, analysisImg) => {
+import axios from "axios";
+
+const formSubmitHandler = (
+  data,
+  bodyImg,
+  analysisImg,
+  setIsLoading,
+  sucess,
+  error
+) => {
+  setIsLoading(true);
   //create request body object
   const reqBody = {
     name: data.name,
@@ -24,9 +34,21 @@ const formSubmitHandler = (data, bodyImg, analysisImg) => {
       hip: data.hip,
       thigh: data.thigh,
     },
+    weightMethod: data.weightMethod,
   };
 
-  console.log(reqBody);
+  axios
+    .post("http://localhost:5000/api/applications", reqBody)
+    .then((res) => {
+      sucess();
+      setIsLoading(false);
+      console.log(res);
+    })
+    .catch((err) => {
+      error();
+      setIsLoading(false);
+      console.log(err);
+    });
 };
 
 export default formSubmitHandler;

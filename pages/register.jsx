@@ -11,7 +11,10 @@ import {
   Radio,
   RadioGroup,
   SimpleGrid,
+  useToast,
 } from "@chakra-ui/react";
+
+import { useRouter } from "next/router";
 
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -20,6 +23,10 @@ import applicationFormValidator from "../validators/applicationFormValidator";
 import formSubmitHandler from "../handlers/formSubmitHandler";
 
 const Register = () => {
+  const router = useRouter("/");
+  //loading state
+  const [isLoading, setIsLoading] = useState(false);
+
   //convert images to base64
   const [bodyImg, setBodyImg] = useState("");
   const [analysisImg, setAnalysisImg] = useState("");
@@ -50,9 +57,33 @@ const Register = () => {
     resolver: yupResolver(applicationFormValidator),
   });
 
+  //feedback
+  const toast = useToast();
+
+  const success = () => {
+    toast({
+      title: "Form submitted succesfully",
+      description: "Thank you for registering",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
+  };
+
+  const error = () => {
+    toast({
+      title: "Network error",
+      description: "please check your internet connection",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
+  };
+
   //form submit handler
   const onSubmit = (data) => {
-    formSubmitHandler(data, bodyImg, analysisImg);
+    formSubmitHandler(data, bodyImg, analysisImg, setIsLoading, success, error);
+    router.push("/");
   };
 
   return (
@@ -95,19 +126,34 @@ const Register = () => {
             )}
           </StyledFormControl>
           <StyledFormControl error={errors.height} label="الطول">
-            <Input variant="flushed" type="number" {...register("height")} />
+            <Input
+              variant="flushed"
+              step="0.01"
+              type="number"
+              {...register("height")}
+            />
             {errors.height && (
               <FormErrorMessage>Required field</FormErrorMessage>
             )}
           </StyledFormControl>
           <StyledFormControl error={errors.weight} label="الوزن الحالي">
-            <Input variant="flushed" type="number" {...register("weight")} />
+            <Input
+              variant="flushed"
+              step="0.01"
+              type="number"
+              {...register("weight")}
+            />
             {errors.weight && (
               <FormErrorMessage>Required field</FormErrorMessage>
             )}
           </StyledFormControl>
           <StyledFormControl error={errors.age} label="العمر">
-            <Input variant="flushed" type="number" {...register("age")} />
+            <Input
+              variant="flushed"
+              step="0.01"
+              type="number"
+              {...register("age")}
+            />
             {errors.age && <FormErrorMessage>Required field</FormErrorMessage>}
           </StyledFormControl>
           <StyledFormControl label="للهدف من الدايت">
@@ -115,28 +161,29 @@ const Register = () => {
               name="target"
               control={control}
               render={({ field: { onChange, value } }) => (
-                <RadioGroup
-                  onChange={onChange}
-                  value={value}
-                  defaultValue="1"
-                  ref={register()}
-                >
+                <RadioGroup onChange={onChange} value={value} ref={register()}>
                   <Stack>
-                    <Radio value="1">تقلل وزنك (تخس بشكل صحي)</Radio>
-                    <Radio value="2">تزود وزنك ( التغلب ع النحافة)</Radio>
-                    <Radio value="3">تحافظ على وزنك مع تظبيط شكل جسمك</Radio>
-                    <Radio value="4">لاعب رياضي ( يمارس اى لعبة رياضية)</Radio>
-                    <Radio value="5">
+                    <Radio value="تقليل الوزن">تقلل وزنك (تخس بشكل صحي)</Radio>
+                    <Radio value="زيادة الوزن">
+                      تزود وزنك ( التغلب ع النحافة)
+                    </Radio>
+                    <Radio value="المحافظة علي الوزن">
+                      تحافظ على وزنك مع تظبيط شكل جسمك
+                    </Radio>
+                    <Radio value="لاعب رياضي">
+                      لاعب رياضي ( يمارس اى لعبة رياضية)
+                    </Radio>
+                    <Radio value="مريض ضغط">
                       مريض ضغط ( هدفه تظبيط الضغط مع تحسن صحته)
                     </Radio>
-                    <Radio value="6">
+                    <Radio value="مريض سكر">
                       مريض سكر ( تظبيط الاكل مع الجرعات لتجنب حدوث غيبوبة سكر +
                       تحسن الصحة العامة وممارسة رياضة)
                     </Radio>
-                    <Radio value="7">
+                    <Radio value="مريض غدة درقية">
                       مريض غدة درقية ( سواء نشطة أو خاملة )
                     </Radio>
-                    <Radio value="8">حالات الpco</Radio>
+                    <Radio value="حالة pco">حالات الpco</Radio>
                   </Stack>
                 </RadioGroup>
               )}
@@ -153,6 +200,7 @@ const Register = () => {
               </Box>
               <SimpleGrid columns={2} columnGap={12} rowGap={5}>
                 <Input
+                  step="0.01"
                   isInvalid={errors.neck}
                   placeholder="neck"
                   variant="flushed"
@@ -160,6 +208,7 @@ const Register = () => {
                   {...register("neck")}
                 />
                 <Input
+                  step="0.01"
                   isInvalid={errors.chest}
                   placeholder="chest"
                   variant="flushed"
@@ -167,6 +216,7 @@ const Register = () => {
                   {...register("chest")}
                 />
                 <Input
+                  step="0.01"
                   isInvalid={errors.arm}
                   placeholder="arm"
                   variant="flushed"
@@ -174,6 +224,7 @@ const Register = () => {
                   {...register("arm")}
                 />
                 <Input
+                  step="0.01"
                   isInvalid={errors.waist}
                   placeholder="waist"
                   variant="flushed"
@@ -181,6 +232,7 @@ const Register = () => {
                   {...register("waist")}
                 />
                 <Input
+                  step="0.01"
                   isInvalid={errors.hip}
                   placeholder="hip"
                   variant="flushed"
@@ -188,6 +240,7 @@ const Register = () => {
                   {...register("hip")}
                 />
                 <Input
+                  step="0.01"
                   isInvalid={errors.thigh}
                   placeholder="thigh"
                   variant="flushed"
@@ -202,17 +255,12 @@ const Register = () => {
               control={control}
               name="activityRate"
               render={({ field: { onChange, value } }) => (
-                <RadioGroup
-                  onChange={onChange}
-                  value={value}
-                  defaultValue="1"
-                  ref={register()}
-                >
+                <RadioGroup onChange={onChange} value={value} ref={register()}>
                   <Stack>
-                    <Radio value="1">مرتفع</Radio>
-                    <Radio value="2">متوسط</Radio>
-                    <Radio value="3">منخفض</Radio>
-                    <Radio value="4">مبتحركش الا نادرا</Radio>
+                    <Radio value="مرتفع">مرتفع</Radio>
+                    <Radio value="متوسط">متوسط</Radio>
+                    <Radio value="منخفض">منخفض</Radio>
+                    <Radio value="مبتحركش الا نادرا">مبتحركش الا نادرا</Radio>
                   </Stack>
                 </RadioGroup>
               )}
@@ -244,22 +292,30 @@ const Register = () => {
               <FormErrorMessage>Required field</FormErrorMessage>
             )}
           </StyledFormControl>
+          <StyledFormControl label={"تحب كميات الاكل تتحسب ازاي"}>
+            <Controller
+              name="weightMethod"
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <RadioGroup onChange={onChange} value={value} ref={register()}>
+                  <Stack>
+                    <Radio value="ميزان جرامات">ميزان جرامات</Radio>
+                    <Radio value="عدد المعالق">عدد المعالق</Radio>
+                  </Stack>
+                </RadioGroup>
+              )}
+            />
+          </StyledFormControl>
           <StyledFormControl label={"مدة الاشتراك"}>
             <Controller
               name="duration"
               control={control}
               render={({ field: { onChange, value } }) => (
-                <RadioGroup
-                  onChange={onChange}
-                  value={value}
-                  defaultValue="1"
-                  ref={register()}
-                >
+                <RadioGroup onChange={onChange} value={value} ref={register()}>
                   <Stack>
                     <Radio value="1">شهر</Radio>
-                    <Radio value="2">3 شهور</Radio>
-                    <Radio value="3">6 شهور</Radio>
-                    <Radio value="4">سنة</Radio>
+                    <Radio value="3">3 شهور</Radio>
+                    <Radio value="6">6 شهور</Radio>
                   </Stack>
                 </RadioGroup>
               )}
@@ -297,6 +353,7 @@ const Register = () => {
             marginInline="auto"
             marginBlock="1rem"
             type="submit"
+            isLoading={isLoading}
           >
             Submit
           </Button>
