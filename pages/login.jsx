@@ -32,6 +32,8 @@ import loginFormValidator from "../validators/loginFormValidator";
 
 import { UserInfo } from "../authContext";
 
+import Loading from "../components/Loading";
+
 const Login = () => {
   //user context
   const { user, login } = useContext(UserInfo);
@@ -64,15 +66,19 @@ const Login = () => {
   const onSubmit = (data) => {
     setIsLoading(true);
     axios
-      .post("http://localhost:5000/api/users/auth", data)
+      .post("http://localhost:5000/api/users/auth", data, {
+        withCredentials: true,
+      })
       .then((res) => {
         login(res.data);
         router.push("/profile");
       })
       .catch((err) => {
         toast({
-          title: "Network error",
-          description: "please check your internet connection",
+          title:
+            err.response.status == 401
+              ? "Incorrect code or password"
+              : "Network error",
           status: "error",
           duration: 5000,
           isClosable: true,
@@ -83,79 +89,87 @@ const Login = () => {
 
   return (
     <Stack pt="9rem" pb="4rem">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack
-          bg="rgba(120,120,120, 0.1)"
-          margin="auto"
-          w="90vw"
-          maxWidth="450px"
-          align="center"
-          p="2rem"
-        >
-          <Heading>Login</Heading>
-          <FormControl
-            isDisabled={isLoading}
-            isInvalid={errors.code}
-            marginBlock="1rem"
+      {!user ? (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack
+            bg="rgba(120,120,120, 0.1)"
+            margin="auto"
+            w="90vw"
+            maxWidth="450px"
+            align="center"
+            p="2rem"
           >
-            <InputGroup>
-              <InputLeftElement>
-                <AiOutlineUser />
-              </InputLeftElement>
-              <Input
-                {...register("code")}
-                focusBorderColor="brand"
-                placeholder="Code"
-                type="number"
-                variant="filled"
-              />
-            </InputGroup>
-            {errors.code && <FormErrorMessage>Required field</FormErrorMessage>}
-          </FormControl>
-          <FormControl isDisabled={isLoading} isInvalid={errors.password}>
-            <InputGroup>
-              <InputLeftElement>
-                <AiOutlineLock />
-              </InputLeftElement>
-              <Input
-                {...register("password")}
-                focusBorderColor="brand"
-                placeholder="Password"
-                type={showPass ? "text" : "password"}
-                variant="filled"
-              />
-              <InputRightElement>
-                <IconButton
-                  onClick={showClickHandler}
-                  isRound={true}
-                  variant="ghost"
-                  size="sm"
-                  icon={showPass ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+            <Heading>Login</Heading>
+            <FormControl
+              isDisabled={isLoading}
+              isInvalid={errors.code}
+              marginBlock="1rem"
+            >
+              <InputGroup>
+                <InputLeftElement>
+                  <AiOutlineUser />
+                </InputLeftElement>
+                <Input
+                  {...register("code")}
+                  focusBorderColor="brand"
+                  placeholder="Code"
+                  type="number"
+                  variant="filled"
                 />
-              </InputRightElement>
-            </InputGroup>
-            {errors.password && (
-              <FormErrorMessage>Required field</FormErrorMessage>
-            )}
-          </FormControl>
-          <Text fontSize="sm" w="100%">
-            Not a member yet?{" "}
-            <Text color="brand" as="span">
-              <Link href="/register">Join us</Link>
+              </InputGroup>
+              {errors.code && (
+                <FormErrorMessage>Required field</FormErrorMessage>
+              )}
+            </FormControl>
+            <FormControl isDisabled={isLoading} isInvalid={errors.password}>
+              <InputGroup>
+                <InputLeftElement>
+                  <AiOutlineLock />
+                </InputLeftElement>
+                <Input
+                  {...register("password")}
+                  focusBorderColor="brand"
+                  placeholder="Password"
+                  type={showPass ? "text" : "password"}
+                  variant="filled"
+                />
+                <InputRightElement>
+                  <IconButton
+                    onClick={showClickHandler}
+                    isRound={true}
+                    variant="ghost"
+                    size="sm"
+                    icon={
+                      showPass ? <AiOutlineEyeInvisible /> : <AiOutlineEye />
+                    }
+                  />
+                </InputRightElement>
+              </InputGroup>
+              {errors.password && (
+                <FormErrorMessage>Required field</FormErrorMessage>
+              )}
+            </FormControl>
+            <Text fontSize="sm" w="100%">
+              Not a member yet?{" "}
+              <Text color="brand" as="span">
+                <Link href="/register">Join us</Link>
+              </Text>
             </Text>
-          </Text>
-          <Button
-            isLoading={isLoading}
-            mt="1rem"
-            fontWeight="700"
-            bg="brand"
-            w="40%"
-            type="submit"
-          >
-            Login
-          </Button>
-        </Stack>
-      </form>
+            <Button
+              isLoading={isLoading}
+              mt="1rem"
+              fontWeight="700"
+              bg="brand"
+              w="40%"
+              type="submit"
+            >
+              Login
+            </Button>
+          </Stack>
+        </form>
+      ) : (
+        <Loading />
+      )}
     </Stack>
   );
 };
