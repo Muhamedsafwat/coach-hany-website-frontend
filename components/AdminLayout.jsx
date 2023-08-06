@@ -122,20 +122,20 @@ const Header = ({ setIsLoading }) => {
 
 const NavItem = ({ label, path, icon, onClose }) => {
   return (
-    <Box
-      onClick={onClose}
-      transition=".3s"
-      _hover={{ bg: "rgba(50,50,50,0.5)" }}
-      p="15px"
-      borderRadius={10}
-    >
-      <Link href={path}>
+    <Link href={path}>
+      <Box
+        onClick={onClose}
+        transition=".3s"
+        _hover={{ bg: "rgba(50,50,50,0.5)" }}
+        p="15px"
+        borderRadius={10}
+      >
         <Flex gap="5px" align="center">
           {icon}
           <Text>{label}</Text>
         </Flex>
-      </Link>
-    </Box>
+      </Box>
+    </Link>
   );
 };
 
