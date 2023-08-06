@@ -19,30 +19,24 @@ import {
 
 import { useRouter } from "next/router";
 
-import { AiOutlinePlus } from "react-icons/ai";
-
 import axios from "axios";
 
-import { UserInfo } from "../authContext";
-import ProtectedRoute from "../components/ProtectedRoute";
-import Loading from "../components/Loading";
-import UpdateProfileMoadal from "../components/UpdateProfileMoadal";
+import ProtectedRoute from "../../../components/ProtectedRoute";
+import Loading from "../../../components/Loading";
 
-import logoutHandler from "../handlers/logoutHandler";
-
-const Profile = () => {
+const UserDeatials = () => {
   const toast = useToast();
   //states
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({});
 
-  //get user context
-  const { user, logout } = useContext(UserInfo);
-
   //fetch user data function
+  const router = useRouter();
+
   const getData = () => {
+    const id = router.query._id;
     axios
-      .get(`http://localhost:5000/api/users/${user._id}`, {
+      .get(`http://localhost:5000/api/users/${id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -60,28 +54,25 @@ const Profile = () => {
       });
   };
 
-  //open update profile Modal
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   //get data
   useEffect(() => {
-    getData();
+    setTimeout(() => {
+      getData();
+    }, 3000);
   }, []);
 
-  const router = useRouter();
-
   return (
-    <ProtectedRoute allowedRole="user">
+    <ProtectedRoute allowedRole="admin">
       <Stack
         align="center"
         paddingInline={{ base: "1.5rem", md: "3rem", lg: "6rem" }}
-        pt="7rem"
+        pt="5rem"
         pb="5rem"
       >
-        <Heading>Your Progress</Heading>
+        <Heading>Client Progress</Heading>
         <Flex gap="1rem" fontSize="xl">
-          <Text>#{user.code} :</Text>
-          <Text>{user.name}</Text>
+          <Text>{data.code}# :</Text>
+          <Text>{data.name}</Text>
         </Flex>
         {isLoading ? (
           <Loading />
@@ -109,34 +100,12 @@ const Profile = () => {
                 {data.measurements.map((item, index) => {
                   return <TableItem key={index} {...item} />;
                 })}
-                <Tr>
-                  <Th colSpan={8}>
-                    <Stack w="100%" align="center">
-                      <Button onClick={onOpen} rounded="full">
-                        <AiOutlinePlus size={25} />
-                      </Button>
-                      <UpdateProfileMoadal
-                        isOpen={isOpen}
-                        onClose={onClose}
-                        measurements={data.measurements}
-                        _id={user._id}
-                        refresh={getData}
-                      />
-                      <Text>Update your progress</Text>
-                    </Stack>
-                  </Th>
-                </Tr>
               </Tbody>
             </Table>
           </TableContainer>
         )}
-        <Button
-          mt="1rem"
-          bg="rgba(200,50,50,0.6)"
-          onClick={() => logoutHandler(setIsLoading, logout, router)}
-          isLoading={isLoading}
-        >
-          Logout
+        <Button mt="1rem" bg="rgba(200,50,50,0.6)" isLoading={isLoading}>
+          Delete account
         </Button>
       </Stack>
     </ProtectedRoute>
@@ -158,4 +127,4 @@ const TableItem = ({ weight, neck, chest, arm, waist, hip, thigh, date }) => {
   );
 };
 
-export default Profile;
+export default UserDeatials;

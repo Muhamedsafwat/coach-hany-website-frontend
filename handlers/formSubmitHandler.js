@@ -9,6 +9,14 @@ const formSubmitHandler = (
   error
 ) => {
   setIsLoading(true);
+
+  //create date for the new measurement
+  let objectDate = new Date();
+
+  let day = objectDate.getDate();
+  let month = objectDate.getMonth() + 1;
+  const date = `${day}/${month}`;
+
   //create request body object
   const reqBody = {
     name: data.name,
@@ -33,6 +41,7 @@ const formSubmitHandler = (
       waist: data.waist,
       hip: data.hip,
       thigh: data.thigh,
+      date,
     },
     weightMethod: data.weightMethod,
   };

@@ -14,6 +14,8 @@ import Link from "next/link";
 
 import Loading from "../../../components/Loading";
 
+import ProtectedRoute from "../../../components/ProtectedRoute";
+
 const Applications = () => {
   const [applications, setApplications] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -43,18 +45,24 @@ const Applications = () => {
   }, []);
 
   return (
-    <Box flex={1} p="2rem">
-      <Heading mb="2rem">Applications</Heading>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <Stack spacing="1rem">
-          {applications.map((item, index) => {
-            return <ListItem key={index} {...item} />;
-          })}
-        </Stack>
-      )}
-    </Box>
+    <ProtectedRoute allowedRole="admin">
+      <Box
+        flex={1}
+        paddingInline={{ base: "1.5rem", md: "3rem", lg: "6rem" }}
+        paddingBlock="2rem"
+      >
+        <Heading mb="2rem">Applications</Heading>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <Stack spacing="1rem">
+            {applications.map((item, index) => {
+              return <ListItem key={index} {...item} />;
+            })}
+          </Stack>
+        )}
+      </Box>
+    </ProtectedRoute>
   );
 };
 

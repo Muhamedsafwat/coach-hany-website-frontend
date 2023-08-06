@@ -71,7 +71,9 @@ const Login = () => {
       })
       .then((res) => {
         login(res.data);
-        router.push("/profile");
+      })
+      .then((res) => {
+        router.push("/");
       })
       .catch((err) => {
         toast({

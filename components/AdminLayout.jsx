@@ -30,6 +30,8 @@ import { useRouter } from "next/router";
 
 import { UserInfo } from "../authContext";
 
+import logoutHandler from "../handlers/logoutHandler";
+
 import Loading from "./Loading";
 
 const AdminLayout = ({ children }) => {
@@ -48,11 +50,7 @@ const Header = ({ setIsLoading }) => {
   //logout
   const router = useRouter();
   const { logout } = useContext(UserInfo);
-  const logoutHandler = () => {
-    setIsLoading(true);
-    router.push("/");
-    logout();
-  };
+
   return (
     <Stack
       justify="space-between"
@@ -103,7 +101,7 @@ const Header = ({ setIsLoading }) => {
             />
             <Divider marginBlock="10px" />
             <Box
-              onClick={logoutHandler}
+              onClick={() => logoutHandler(setIsLoading, logout, router)}
               cursor="pointer"
               transition=".3s"
               _hover={{ bg: "rgba(200,50,50,0.6)" }}

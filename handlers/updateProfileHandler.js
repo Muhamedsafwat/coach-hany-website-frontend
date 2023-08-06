@@ -10,8 +10,17 @@ const updateProfileHandler = (
   _id,
   refresh
 ) => {
+  //create date for the new measurement
+  let objectDate = new Date();
+
+  let day = objectDate.getDate();
+  let month = objectDate.getMonth() + 1;
+  const date = `${day}/${month}`;
+
+  const newMeasurements = { ...data, date };
+
   setIsLoading(true);
-  const measurements = [...currentMeasurements, data];
+  const measurements = [...currentMeasurements, newMeasurements];
   axios
     .put(
       `http://localhost:5000/api/users/${_id}`,

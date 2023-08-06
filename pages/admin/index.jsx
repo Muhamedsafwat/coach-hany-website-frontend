@@ -5,8 +5,11 @@ import ProtectedRoute from "../../components/ProtectedRoute";
 const Plans = () => {
   return (
     <ProtectedRoute allowedRole="admin">
-      <Box mt="5rem">
-        <Heading>Dashboard</Heading>
+      <Box
+        paddingInline={{ base: "1.5rem", md: "3rem", lg: "6rem" }}
+        paddingBlock="2rem"
+      >
+        <Heading mb="2rem">Dashnoard</Heading>
       </Box>
     </ProtectedRoute>
   );
