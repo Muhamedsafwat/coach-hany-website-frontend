@@ -7,8 +7,9 @@ import {
   useToast,
   Button,
   Flex,
-  Divider,
 } from "@chakra-ui/react";
+import { AiOutlineBarChart, AiOutlineForm } from "react-icons/ai";
+
 import axios from "axios";
 import Link from "next/link";
 
@@ -89,12 +90,14 @@ const ListItem = ({ code, name, _id }) => {
         <Flex gap="1rem">
           <Link href={`/admin/users/${_id}`}>
             <Button size="sm" bg="brand">
-              View progress
+              <AiOutlineBarChart />
+              <Text ml={1}>View progress</Text>
             </Button>
           </Link>
           <Link href={`/admin/applications/${code}`}>
             <Button size="sm" bg="brand">
-              View form
+              <AiOutlineForm />
+              <Text ml={1}>View form</Text>
             </Button>
           </Link>
         </Flex>

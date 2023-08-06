@@ -6,8 +6,8 @@ import SectionLayout from "../SectionLayout";
 const Plans = () => {
   return (
     <SectionLayout
-      heading="our plans"
-      subHeading="choose your pricing plan"
+      heading="our offers"
+      subHeading="choose your suitable package"
       bgColor="#0f0f0f"
     >
       <Flex gap="1rem" justify="space-around" flexWrap="wrap">
@@ -19,7 +19,7 @@ const Plans = () => {
   );
 };
 
-const Card = ({ duration, price, features }) => {
+const Card = ({ duration, price, features, insteadOf }) => {
   return (
     <Box
       marginBlock={["1rem", "1rem", "2rem"]}
@@ -38,6 +38,15 @@ const Card = ({ duration, price, features }) => {
         <Text marginBottom="-.8rem" fontWeight="bold" fontSize="1.8rem">
           {duration}
         </Text>
+        <Text
+          mb="-1.3rem"
+          mt="1rem"
+          textDecoration="line-through"
+          fontSize="1.5rem"
+          color="#888"
+        >
+          {insteadOf}
+        </Text>
         <Text mb={5} fontWeight="bold" fontSize="3.2rem" color="brand">
           {price}
         </Text>
@@ -53,36 +62,36 @@ const Card = ({ duration, price, features }) => {
 
 const plans = [
   {
-    duration: "3 Months",
-    price: "350 LE",
+    duration: "1 Month",
+    insteadOf: "750 LE",
+    price: "500 LE",
     features: [
-      "Free riding",
-      "Unlimited equipments",
-      "Personal trainer",
-      "Weight losing classes",
-      "Month to mouth",
+      "Personalized diet plan",
+      "Professional workout plan",
+      "Get additional 15 days for free",
+      "Limited discount",
     ],
   },
   {
-    duration: "6 Months",
-    price: "600 LE",
+    duration: "2 Months",
+    insteadOf: "1500 LE",
+    price: "1000 LE",
     features: [
-      "Free riding",
-      "Unlimited equipments",
-      "Personal trainer",
-      "Weight losing classes",
-      "Month to mouth",
+      "Personalized diet plan",
+      "Professional workout plan",
+      "Get additional 1 month for free",
+      "Limited discount",
     ],
   },
   {
-    duration: "9 Months",
-    price: "850 LE",
+    duration: "4 Months",
+    insteadOf: "3000 LE",
+    price: "2000 LE",
     features: [
-      "Free riding",
-      "Unlimited equipments",
-      "Personal trainer",
-      "Weight losing classes",
-      "Month to mouth",
+      "Personalized diet plan",
+      "Professional workout plan",
+      "Get additional 2 months for free",
+      "Limited discount",
     ],
   },
 ];

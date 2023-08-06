@@ -13,6 +13,8 @@ import {
   Text,
   Flex,
 } from "@chakra-ui/react";
+import { AiOutlineDelete, AiOutlineUserAdd } from "react-icons/ai";
+
 import axios from "axios";
 
 import Loading from "../../../components/Loading";
@@ -317,14 +319,16 @@ const ApplicationDetails = () => {
                 onClick={deleteHandler}
                 bg="rgba(200, 20, 20, 1)"
               >
-                Delete
+                <AiOutlineDelete />
+                <Text ml={1}>Delete</Text>
               </Button>
               <Button
                 onClick={createAccount}
                 isLoading={createAccountLoading}
                 bg="brand"
               >
-                Create account
+                <AiOutlineUserAdd />
+                <Text ml={1}>Create account</Text>
               </Button>
             </Flex>
           </Stack>
