@@ -7,6 +7,7 @@ import {
   useToast,
   Button,
   Flex,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import { AiOutlinePlus, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
@@ -14,10 +15,12 @@ import { AiOutlinePlus, AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import axios from "axios";
 
 import Loading from "../../components/Loading";
-
 import ProtectedRoute from "../../components/ProtectedRoute";
+import PlanFormModal from "../../components/PlanFormModal";
 
-const Users = () => {
+import deletePlan from "../../handlers/deletePlanHandler";
+
+const Plans = () => {
   const [plans, setPlans] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const toast = useToast();
@@ -28,23 +31,46 @@ const Users = () => {
       .then((res) => {
         setPlans(res.data);
         setIsLoading(false);
-        console.log(res.data);
       })
       .catch((error) => {
-        console.log(error);
-        toast({
-          title: "Network Error",
-          description: "please check your internet connection",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
+        networkError();
       });
+  };
+
+  const networkError = () => {
+    toast({
+      title: "Network Error",
+      description: "please check your internet connection",
+      status: "error",
+      duration: 5000,
+      isClosable: true,
+    });
+  };
+
+  const success = () => {
+    toast({
+      title: "Done!",
+      description: "Package deleted successfully",
+      status: "success",
+      duration: 5000,
+      isClosable: true,
+    });
   };
 
   useEffect(() => {
     getPlans();
   }, []);
+
+  const refresh = () => {
+    getPlans();
+  };
+
+  const deleteHandler = (id) => {
+    deletePlan(id, refresh, networkError, success);
+  };
+
+  //open update profile Modal
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <ProtectedRoute allowedRole="admin">
@@ -57,9 +83,11 @@ const Users = () => {
         {isLoading ? (
           <Loading />
         ) : (
-          <Flex flexWrap="wrap" gap="2rem">
+          <Flex justify="center" flexWrap="wrap" gap="2rem">
             {plans.map((item, index) => {
-              return <Card key={index} {...item} />;
+              return (
+                <Card deleteHandler={deleteHandler} key={index} {...item} />
+              );
             })}
             <Box
               marginBlock={["1rem", "1rem", "2rem"]}
@@ -80,11 +108,21 @@ const Users = () => {
                 transform="skewY(4deg)"
               >
                 <Stack align="center">
-                  <Button padding="2rem" size="lg" rounded="full">
+                  <Button
+                    onClick={onOpen}
+                    padding="2rem"
+                    size="lg"
+                    rounded="full"
+                  >
                     <AiOutlinePlus size={30} />
                   </Button>
                   <Text fontSize="1.7rem">Create new plan</Text>
                 </Stack>
+                <PlanFormModal
+                  refresh={refresh}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                />
               </Stack>
             </Box>
           </Flex>
@@ -94,7 +132,7 @@ const Users = () => {
   );
 };
 
-const Card = ({ duration, price, features, insteadOf }) => {
+const Card = ({ duration, price, features, insteadOf, _id, deleteHandler }) => {
   return (
     <Box
       marginBlock={["1rem", "1rem", "2rem"]}
@@ -132,7 +170,11 @@ const Card = ({ duration, price, features, insteadOf }) => {
           );
         })}
         <Flex justify="center" gap="1rem">
-          <Button size="sm" bg="rgba(250,50,50,0.8)">
+          <Button
+            onClick={() => deleteHandler(_id)}
+            size="sm"
+            bg="rgba(250,50,50,0.8)"
+          >
             <AiOutlineDelete /> <Text ml={1}>Delete</Text>
           </Button>
           <Button size="sm" bg="brand">
@@ -144,4 +186,4 @@ const Card = ({ duration, price, features, insteadOf }) => {
   );
 };
 
-export default Users;
+export default Plans;
