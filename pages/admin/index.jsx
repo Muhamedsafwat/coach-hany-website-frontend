@@ -157,10 +157,10 @@ const Card = ({ duration, price, features, insteadOf, _id, deleteHandler }) => {
           fontSize="1.5rem"
           color="#888"
         >
-          {insteadOf}
+          {insteadOf} LE
         </Text>
         <Text mb={5} fontWeight="bold" fontSize="3.2rem" color="brand">
-          {price}
+          {price} LE
         </Text>
         {features.map((item, index) => {
           return (

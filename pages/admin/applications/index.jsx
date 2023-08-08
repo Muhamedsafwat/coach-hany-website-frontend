@@ -66,7 +66,7 @@ const Applications = () => {
   );
 };
 
-const ListItem = ({ code, name, duration }) => {
+const ListItem = ({ code, name, duration, target }) => {
   return (
     <Flex
       cursor="pointer"
@@ -86,7 +86,7 @@ const ListItem = ({ code, name, duration }) => {
       <Flex justify="space-between" width="40%" align="center">
         <Text>#{code}</Text>
         <Text>{duration + " "}months</Text>
-        <Text>Gain</Text>
+        <Text>{target}</Text>
         <Link href={`/admin/applications/${code}`}>
           <Button size="sm" bg="brand">
             View

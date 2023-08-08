@@ -1,20 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Flex, Box, Text, Stack } from "@chakra-ui/react";
 
+import axios from "axios";
+
 import SectionLayout from "../SectionLayout";
+import Loading from "../../components/Loading";
 
 const Plans = () => {
+  const [plans, setPlans] = useState();
+
+  const getPlans = () => {
+    axios.get("http://localhost:5000/api/plans").then((res) => {
+      setPlans(res.data);
+    });
+  };
+
+  useEffect(() => {
+    getPlans();
+  }, []);
+
   return (
     <SectionLayout
       heading="our offers"
       subHeading="choose your suitable package"
       bgColor="#0f0f0f"
     >
-      <Flex gap="1rem" justify="space-around" flexWrap="wrap">
-        {plans.map((item, index) => (
-          <Card key={index} {...item} />
-        ))}
-      </Flex>
+      {plans ? (
+        <Flex gap="2rem" justify="center" flexWrap="wrap">
+          {plans.map((item, index) => (
+            <Card key={index} {...item} />
+          ))}
+        </Flex>
+      ) : (
+        <Loading />
+      )}
     </SectionLayout>
   );
 };
@@ -45,10 +64,10 @@ const Card = ({ duration, price, features, insteadOf }) => {
           fontSize="1.5rem"
           color="#888"
         >
-          {insteadOf}
+          {insteadOf} LE
         </Text>
         <Text mb={5} fontWeight="bold" fontSize="3.2rem" color="brand">
-          {price}
+          {price} LE
         </Text>
         {features.map((item, index) => (
           <Text key={index} fontWeight="light" mb={1}>
@@ -60,7 +79,7 @@ const Card = ({ duration, price, features, insteadOf }) => {
   );
 };
 
-const plans = [
+const plansTest = [
   {
     duration: "1 Month",
     insteadOf: "750 LE",

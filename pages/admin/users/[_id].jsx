@@ -116,7 +116,7 @@ const TableItem = ({ weight, neck, chest, arm, waist, hip, thigh, date }) => {
   return (
     <Tr>
       <Td>{date}</Td>
-      <Td>{weight} cm</Td>
+      <Td>{weight} kg</Td>
       <Td>{neck} cm</Td>
       <Td>{chest} cm</Td>
       <Td>{arm} cm</Td>

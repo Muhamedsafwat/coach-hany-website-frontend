@@ -42,7 +42,6 @@ const ApplicationDetails = () => {
       .then((res) => {
         setData(res.data);
         setIsLoading(false);
-        console.log(res.data.weightMethod);
       })
       .catch((err) => {
         toast({
@@ -100,10 +99,23 @@ const ApplicationDetails = () => {
           isClosable: true,
           duration: 5000,
         });
-        setIsLoading(false);
+        setCreateAccountLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        toast({
+          status: "error",
+          title:
+            err.response.status == 400
+              ? "User already exists"
+              : "Network error",
+          description:
+            err.response.status == 400
+              ? null
+              : "Please check your internet connection",
+          isClosable: true,
+          duration: 5000,
+        });
+        setCreateAccountLoading(false);
       });
   };
 

@@ -67,7 +67,7 @@ const Users = () => {
   );
 };
 
-const ListItem = ({ code, name, _id }) => {
+const ListItem = ({ code, name, _id, target }) => {
   return (
     <Flex
       cursor="pointer"
@@ -86,7 +86,7 @@ const ListItem = ({ code, name, _id }) => {
 
       <Flex justify="space-between" width="40%" align="center">
         <Text>#{code}</Text>
-        <Text>Gain</Text>
+        <Text>{target}</Text>
         <Flex gap="1rem">
           <Link href={`/admin/users/${_id}`}>
             <Button size="sm" bg="brand">
