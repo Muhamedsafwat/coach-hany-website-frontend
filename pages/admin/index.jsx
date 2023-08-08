@@ -69,7 +69,7 @@ const Plans = () => {
     deletePlan(id, refresh, networkError, success);
   };
 
-  //open update profile Modal
+  //open create plan modal
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -86,7 +86,12 @@ const Plans = () => {
           <Flex justify="center" flexWrap="wrap" gap="2rem">
             {plans.map((item, index) => {
               return (
-                <Card deleteHandler={deleteHandler} key={index} {...item} />
+                <Card
+                  refresh={refresh}
+                  deleteHandler={deleteHandler}
+                  key={index}
+                  {...item}
+                />
               );
             })}
             <Box
@@ -122,6 +127,7 @@ const Plans = () => {
                   refresh={refresh}
                   isOpen={isOpen}
                   onClose={onClose}
+                  method="post"
                 />
               </Stack>
             </Box>
@@ -132,57 +138,80 @@ const Plans = () => {
   );
 };
 
-const Card = ({ duration, price, features, insteadOf, _id, deleteHandler }) => {
+const Card = ({
+  duration,
+  price,
+  features,
+  insteadOf,
+  _id,
+  deleteHandler,
+  refresh,
+}) => {
+  //open update plan Modal
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box
-      marginBlock={["1rem", "1rem", "2rem"]}
-      cursor="pointer"
-      transition=".3s"
-      transform="skewY(-4deg)"
-      textAlign="center"
-      paddingBlock={10}
-      minW="250px"
-      w="27%"
-      border="1px"
-      borderColor="#555"
-    >
-      <Stack transform="skewY(4deg)">
-        <Text marginBottom="-.8rem" fontWeight="bold" fontSize="1.8rem">
-          {duration}
-        </Text>
-        <Text
-          mb="-1.3rem"
-          mt="1rem"
-          textDecoration="line-through"
-          fontSize="1.5rem"
-          color="#888"
-        >
-          {insteadOf} LE
-        </Text>
-        <Text mb={5} fontWeight="bold" fontSize="3.2rem" color="brand">
-          {price} LE
-        </Text>
-        {features.map((item, index) => {
-          return (
-            <Text fontWeight="light" mb={1} key={index}>
-              {item}
-            </Text>
-          );
-        })}
-        <Flex justify="center" gap="1rem">
-          <Button
-            onClick={() => deleteHandler(_id)}
-            size="sm"
-            bg="rgba(250,50,50,0.8)"
+    <>
+      <Box
+        marginBlock={["1rem", "1rem", "2rem"]}
+        cursor="pointer"
+        transition=".3s"
+        transform="skewY(-4deg)"
+        textAlign="center"
+        paddingBlock={10}
+        minW="250px"
+        w="27%"
+        border="1px"
+        borderColor="#555"
+      >
+        <Stack transform="skewY(4deg)">
+          <Text marginBottom="-.8rem" fontWeight="bold" fontSize="1.8rem">
+            {duration}
+          </Text>
+          <Text
+            mb="-1.3rem"
+            mt="1rem"
+            textDecoration="line-through"
+            fontSize="1.5rem"
+            color="#888"
           >
-            <AiOutlineDelete /> <Text ml={1}>Delete</Text>
-          </Button>
-          <Button size="sm" bg="brand">
-            <AiOutlineEdit /> <Text ml={1}>Edit</Text>
-          </Button>
-        </Flex>
-      </Stack>
-    </Box>
+            {insteadOf} LE
+          </Text>
+          <Text mb={5} fontWeight="bold" fontSize="3.2rem" color="brand">
+            {price} LE
+          </Text>
+          {features.map((item, index) => {
+            return (
+              <Text fontWeight="light" mb={1} key={index}>
+                {item}
+              </Text>
+            );
+          })}
+          <Flex justify="center" gap="1rem">
+            <Button
+              onClick={() => deleteHandler(_id)}
+              size="sm"
+              bg="rgba(250,50,50,0.8)"
+            >
+              <AiOutlineDelete /> <Text ml={1}>Delete</Text>
+            </Button>
+            <Button onClick={onOpen} size="sm" bg="brand">
+              <AiOutlineEdit /> <Text ml={1}>Edit</Text>
+            </Button>
+          </Flex>
+        </Stack>
+      </Box>
+      <PlanFormModal
+        onClose={onClose}
+        isOpen={isOpen}
+        method="put"
+        duration={duration}
+        price={price}
+        currentFeatures={features}
+        insteadOf={insteadOf}
+        _id={_id}
+        refresh={refresh}
+      />
+    </>
   );
 };
 

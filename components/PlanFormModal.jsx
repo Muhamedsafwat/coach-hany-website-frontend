@@ -23,12 +23,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import pricingPlanValidator from "../validators/pricingPlanValidator";
 import { createPlan } from "../handlers/createPlanHandler";
 
-const PlanFormModal = ({ isOpen, onClose, refresh }) => {
-  const method = "post";
+const PlanFormModal = ({
+  isOpen,
+  onClose,
+  refresh,
+  method,
+  duration,
+  price,
+  currentFeatures,
+  insteadOf,
+  _id,
+}) => {
   //loading state
   const [isLoading, setIsLoading] = useState(false);
   //features array
-  const [features, setFeatures] = useState([]);
+  const [features, setFeatures] = useState(currentFeatures || []);
   const inputRef = useRef();
 
   const addFeature = () => {
@@ -76,8 +85,20 @@ const PlanFormModal = ({ isOpen, onClose, refresh }) => {
 
   //submit form
   const submit = (data) => {
-    createPlan(data, features, setIsLoading, onClose, success, error, refresh);
+    createPlan(
+      data,
+      features,
+      setIsLoading,
+      onClose,
+      success,
+      error,
+      refresh,
+      method,
+      _id
+    );
   };
+
+  //edit plan
   return (
     <Modal scrollBehavior={"inside"} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -101,6 +122,7 @@ const PlanFormModal = ({ isOpen, onClose, refresh }) => {
           <form onSubmit={handleSubmit(submit)}>
             <Stack spacing={5}>
               <Input
+                defaultValue={duration || ""}
                 isInvalid={errors.duration}
                 placeholder="Duration"
                 type="text"
@@ -108,6 +130,7 @@ const PlanFormModal = ({ isOpen, onClose, refresh }) => {
               />
               <InputGroup>
                 <Input
+                  defaultValue={price || ""}
                   isInvalid={errors.price}
                   placeholder="Price"
                   type="text"
@@ -117,6 +140,7 @@ const PlanFormModal = ({ isOpen, onClose, refresh }) => {
               </InputGroup>
               <InputGroup>
                 <Input
+                  defaultValue={insteadOf || ""}
                   isInvalid={errors.insteadOf}
                   placeholder="Instead of"
                   type="text"

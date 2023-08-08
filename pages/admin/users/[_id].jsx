@@ -28,13 +28,14 @@ const UserDeatials = () => {
   const toast = useToast();
   //states
   const [isLoading, setIsLoading] = useState(true);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const [data, setData] = useState({});
 
   //fetch user data function
   const router = useRouter();
+  const id = router.query._id;
 
   const getData = () => {
-    const id = router.query._id;
     axios
       .get(`http://localhost:5000/api/users/${id}`, {
         withCredentials: true,
@@ -60,6 +61,19 @@ const UserDeatials = () => {
       getData();
     }, 3000);
   }, []);
+
+  //delete account handler
+  const deleteAccount = () => {
+    setDeleteLoading(true);
+    axios
+      .delete(`http://localhost:5000/api/users/${id}`, {
+        withCredentials: true,
+      })
+      .then(() => {
+        router.push("/admin/users");
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <ProtectedRoute allowedRole="admin">
@@ -104,7 +118,12 @@ const UserDeatials = () => {
             </Table>
           </TableContainer>
         )}
-        <Button mt="1rem" bg="rgba(200,50,50,0.6)" isLoading={isLoading}>
+        <Button
+          isLoading={deleteLoading}
+          mt="1rem"
+          bg="rgba(200,50,50,0.6)"
+          onClick={deleteAccount}
+        >
           Delete account
         </Button>
       </Stack>
