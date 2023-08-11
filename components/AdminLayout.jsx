@@ -101,7 +101,7 @@ const Header = ({ setIsLoading }) => {
             />
             <Divider marginBlock="10px" />
             <Box
-              onClick={() => logoutHandler(setIsLoading, logout, router)}
+              onClick={() => logoutHandler(logout, router)}
               cursor="pointer"
               transition=".3s"
               _hover={{ bg: "rgba(200,50,50,0.6)" }}

@@ -134,7 +134,7 @@ const Profile = () => {
         <Button
           mt="1rem"
           bg="rgba(200,50,50,0.6)"
-          onClick={() => logoutHandler(setIsLoading, logout, router)}
+          onClick={() => logoutHandler(logout, router)}
           isLoading={isLoading}
         >
           Logout
