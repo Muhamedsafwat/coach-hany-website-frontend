@@ -22,26 +22,25 @@ const Users = () => {
   const [isLoading, setIsLoading] = useState(true);
   const toast = useToast();
 
-  const getUsers = async () => {
-    axios
-      .get(`${process.env.API_URL}/api/users`, { withCredentials: true })
-      .then((res) => {
-        setUsers(res.data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        toast({
-          title: "Network Error",
-          description: "please check your internet connection",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-      });
-  };
-
   useEffect(() => {
+    const getUsers = async () => {
+      axios
+        .get(`${process.env.API_URL}/api/users`, { withCredentials: true })
+        .then((res) => {
+          setUsers(res.data);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          toast({
+            title: "Network Error",
+            description: "please check your internet connection",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        });
+    };
     getUsers();
   }, []);
 

@@ -21,26 +21,27 @@ const Applications = () => {
   const [isLoading, setIsLoading] = useState(true);
   const toast = useToast();
 
-  const getApplications = async () => {
-    axios
-      .get(`${process.env.API_URL}/api/applications`, { withCredentials: true })
-      .then((res) => {
-        setApplications(res.data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        toast({
-          title: "Network Error",
-          description: "please check your internet connection",
-          status: "error",
-          duration: 5000,
-          isClosable: true,
-        });
-      });
-  };
-
   useEffect(() => {
+    const getApplications = async () => {
+      axios
+        .get(`${process.env.API_URL}/api/applications`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setApplications(res.data);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+          toast({
+            title: "Network Error",
+            description: "please check your internet connection",
+            status: "error",
+            duration: 5000,
+            isClosable: true,
+          });
+        });
+    };
     getApplications();
   }, []);
 

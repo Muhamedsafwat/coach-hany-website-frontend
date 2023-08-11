@@ -35,28 +35,28 @@ const UserDeatials = () => {
   const router = useRouter();
   const id = router.query._id;
 
-  const getData = () => {
-    axios
-      .get(`${process.env.API_URL}/api/users/${id}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setData(res.data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        toast({
-          status: "error",
-          title: "Connection error",
-          description: "Please check your internet connection",
-          isClosable: true,
-          duration: 5000,
-        });
-      });
-  };
-
   //get data
   useEffect(() => {
+    const getData = () => {
+      axios
+        .get(`${process.env.API_URL}/api/users/${id}`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setData(res.data);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          toast({
+            status: "error",
+            title: "Connection error",
+            description: "Please check your internet connection",
+            isClosable: true,
+            duration: 5000,
+          });
+        });
+    };
+
     setTimeout(() => {
       getData();
     }, 3000);

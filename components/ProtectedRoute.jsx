@@ -28,7 +28,7 @@ const ProtectedRoute = ({ children, allowedRole }) => {
     } else if (checkRole() == allowedRole) {
       setIsLoading(false);
     }
-  }, []);
+  });
 
   if (isLoading) {
     return <Loading />;

@@ -66,6 +66,7 @@ const Profile = () => {
   //get data
   useEffect(() => {
     getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const router = useRouter();

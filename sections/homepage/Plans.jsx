@@ -9,20 +9,18 @@ import Loading from "../../components/Loading";
 const Plans = () => {
   const [plans, setPlans] = useState();
 
-  const getPlans = () => {
-    axios
-      .get(`${process.env.API_URL}/api/plans`)
-      .then((res) => {
-        setPlans(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   useEffect(() => {
+    const getPlans = () => {
+      axios
+        .get(`${process.env.API_URL}/api/plans`)
+        .then((res) => {
+          setPlans(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
     getPlans();
-    //console.log(process.env.API_URL);
   }, []);
 
   return (

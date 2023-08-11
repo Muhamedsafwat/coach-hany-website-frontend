@@ -136,7 +136,7 @@ const PlanFormModal = ({
                   type="text"
                   {...register("price")}
                 />
-                <InputRightAddon children=" LE" />
+                <InputRightAddon>{" LE"}</InputRightAddon>
               </InputGroup>
               <InputGroup>
                 <Input
@@ -146,7 +146,7 @@ const PlanFormModal = ({
                   type="text"
                   {...register("insteadOf")}
                 />
-                <InputRightAddon children=" LE" />
+                <InputRightAddon>{" LE"}</InputRightAddon>
               </InputGroup>
               <Stack>
                 <InputGroup>

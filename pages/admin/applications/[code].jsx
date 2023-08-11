@@ -34,26 +34,6 @@ const ApplicationDetails = () => {
   const router = useRouter();
   const code = router.query.code;
 
-  const getData = (code) => {
-    axios
-      .get(`${process.env.API_URL}/api/applications/${code}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setData(res.data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        toast({
-          status: "error",
-          title: "Connection error",
-          description: "Please check your internet connection",
-          isClosable: true,
-          duration: 5000,
-        });
-      });
-  };
-
   //delete form funcion
   const deleteHandler = () => {
     setDeleteLoading(true);
@@ -121,6 +101,26 @@ const ApplicationDetails = () => {
 
   //fetch data
   useEffect(() => {
+    const getData = (code) => {
+      axios
+        .get(`${process.env.API_URL}/api/applications/${code}`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setData(res.data);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          toast({
+            status: "error",
+            title: "Connection error",
+            description: "Please check your internet connection",
+            isClosable: true,
+            duration: 5000,
+          });
+        });
+    };
+
     if (code) {
       getData(code);
     }

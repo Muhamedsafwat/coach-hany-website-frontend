@@ -11,7 +11,7 @@ const Layout = ({ children }) => {
   const { user } = useContext(UserInfo);
 
   if (user.username) {
-    return <AdminLayout children={children} />;
+    return <AdminLayout> {children} </AdminLayout>;
   } else {
     return (
       <>

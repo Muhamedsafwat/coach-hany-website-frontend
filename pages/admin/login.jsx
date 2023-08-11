@@ -39,7 +39,7 @@ const Login = () => {
     if (user) {
       router.push("/admin");
     }
-  }, [user]);
+  }, [user, router]);
 
   //show password
   const [showPass, setShowPass] = useState(false);
