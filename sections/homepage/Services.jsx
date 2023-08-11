@@ -9,6 +9,7 @@ const Services = () => {
       heading="our services"
       subHeading="what we can offer"
       bgColor="#191919"
+      sectionId="services"
     >
       <SimpleGrid justifyContent="center" minChildWidth="300px" spacing={10}>
         {services.map((item, index) => (

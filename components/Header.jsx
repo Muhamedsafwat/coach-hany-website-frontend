@@ -24,6 +24,8 @@ import {
   AiOutlineUser,
   AiOutlineHome,
   AiOutlineLogout,
+  AiOutlinePhone,
+  AiOutlineLogin,
 } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
 
@@ -63,17 +65,9 @@ const DesktopNav = () => {
   return (
     <Stack flex={1} direction=" row ">
       <Stack flex={1} justify="center" direction="row" spacing={10}>
-        {links.map((link, index) => (
-          <NavItem key={index} props={link} />
-        ))}
-        {user ? (
-          <NavItem props={{ label: "Profile", path: "/profile" }} />
-        ) : (
-          <>
-            <NavItem props={{ label: "Join us", path: "/register" }} />
-            <NavItem props={{ label: "Login", path: "/login" }} />
-          </>
-        )}
+        {user
+          ? userLinks.map((item, index) => <NavItem key={index} {...item} />)
+          : links.map((item, index) => <NavItem key={index} {...item} />)}
       </Stack>
       <Stack justify="flex-end" direction="row">
         {socialLinks.map((link, index) => (
@@ -174,12 +168,12 @@ const MobileNavItem = ({ label, path, icon, onClose }) => {
   );
 };
 //navbar link component
-const NavItem = ({ props }) => {
+const NavItem = ({ path, label }) => {
   return (
     <Button _hover={{ color: "brand", textDecoration: "none" }} variant="link">
-      <Link href={props.path}>
+      <Link href={path}>
         <Text fontSize="lg" fontWeight="bold">
-          {props.label}
+          {label}
         </Text>
       </Link>
     </Button>
@@ -204,16 +198,18 @@ const SocialIcon = ({ props }) => {
 
 //navbar links
 const links = [
-  { label: "Home", path: "/" },
-  { label: "Services", path: "#" },
-  { label: "About", path: "#" },
-  { label: "Register", path: "/register" },
-  { label: "Login", path: "/login" },
+  { label: "Home", path: "/", icon: <AiOutlineHome /> },
+  { label: "Services", path: "/#services", icon: <AiOutlineDollar /> },
+  { label: "Contact", path: "/#contact", icon: <AiOutlinePhone /> },
+  { label: "Register", path: "/register", icon: <AiOutlineForm /> },
+  { label: "Login", path: "/login", icon: <AiOutlineLogin /> },
 ];
 
 //mobile navbar links
 const userLinks = [
   { label: "Home", path: "/", icon: <AiOutlineHome /> },
+  { label: "Services", path: "#services", icon: <AiOutlineDollar /> },
+  { label: "Contact", path: "#contact", icon: <AiOutlinePhone /> },
   { label: "Profile", path: "/profile", icon: <AiOutlineUser /> },
 ];
 

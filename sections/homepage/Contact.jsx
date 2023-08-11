@@ -11,6 +11,7 @@ const Contact = () => {
       heading="contact us"
       subHeading="got any questions?"
       bgColor="#191919"
+      sectionId="contact"
     >
       <Flex direction="row" justify="center" gap="5rem" flexWrap="wrap">
         {contacts.map((item, index) => (
@@ -23,7 +24,14 @@ const Contact = () => {
 
 const Card = ({ icon, text }) => {
   return (
-    <Flex flex={1} mt="-1rem" cursor="pointer" gap="1rem" align="center">
+    <Flex
+      justify={["flex-start", "center"]}
+      flex={1}
+      mt="-1rem"
+      cursor="pointer"
+      gap="1rem"
+      align="center"
+    >
       <Box
         transition=".3s"
         padding="1.1rem"

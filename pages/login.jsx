@@ -14,6 +14,7 @@ import {
   IconButton,
   FormErrorMessage,
   useToast,
+  Flex,
 } from "@chakra-ui/react";
 
 import {
@@ -76,11 +77,9 @@ const Login = () => {
         router.push("/");
       })
       .catch((err) => {
+        console.log(err);
         toast({
-          title:
-            err.response.status == 401
-              ? "Incorrect code or password"
-              : "Network error",
+          title: "Network error",
           status: "error",
           duration: 5000,
           isClosable: true,
@@ -151,12 +150,17 @@ const Login = () => {
                 <FormErrorMessage>Required field</FormErrorMessage>
               )}
             </FormControl>
-            <Text fontSize="sm" w="100%">
-              Not a member yet?{" "}
-              <Text color="brand" as="span">
-                <Link href="/register">Join us</Link>
+            <Flex width="100%" justify="space-between">
+              <Text fontSize="sm" w="100%">
+                Not a member yet?{" "}
+                <Text color="brand" as="span">
+                  <Link href="/register">Join us</Link>
+                </Text>
               </Text>
-            </Text>
+              <Text color="brand" fontSize="sm">
+                <Link href="/admin/login">Admin?</Link>
+              </Text>
+            </Flex>
             <Button
               isLoading={isLoading}
               mt="1rem"

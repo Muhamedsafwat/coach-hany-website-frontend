@@ -1,9 +1,16 @@
 import React from "react";
 import { Box, Stack, Text } from "@chakra-ui/react";
 
-const SectionLayout = ({ children, heading, subHeading, bgColor }) => {
+const SectionLayout = ({
+  children,
+  heading,
+  subHeading,
+  bgColor,
+  sectionId,
+}) => {
   return (
     <Box
+      id={sectionId || ""}
       bg={bgColor}
       textAlign="center"
       paddingBlock="5rem"

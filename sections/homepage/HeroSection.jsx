@@ -1,5 +1,6 @@
 import React from "react";
 import { Stack, Text, Button } from "@chakra-ui/react";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -38,19 +39,21 @@ const HeroSection = () => {
           <br />
           TRAIN HARD
         </Text>
-        <Button
-          borderRadius={0}
-          w="fit-content"
-          paddingBlock={5}
-          paddingInline={12}
-          mt={5}
-          variant="solid"
-          bg="brand"
-          letterSpacing={2}
-          fontWeight="bold"
-        >
-          JOIN US
-        </Button>
+        <Link href="/register">
+          <Button
+            borderRadius={0}
+            w="fit-content"
+            paddingBlock={5}
+            paddingInline={12}
+            mt={5}
+            variant="solid"
+            bg="brand"
+            letterSpacing={2}
+            fontWeight="bold"
+          >
+            JOIN US
+          </Button>
+        </Link>
       </Stack>
     </Stack>
   );

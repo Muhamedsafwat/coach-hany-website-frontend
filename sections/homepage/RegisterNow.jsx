@@ -25,14 +25,19 @@ const RegisterNow = () => {
       >
         WHERE HEALTH, BEAUTY AND FITNESS MEET.
       </Text>
-      <Button
-        mt="1rem"
-        bg="brand"
-        size={["md", "md", "lg"]}
-        leftIcon={<BsWhatsapp />}
+      <a
+        target="_blank"
+        href="https://api.whatsapp.com/send?phone=201014566873&text=%D8%AA%D9%81%D8%A7%D8%B5%D9%8A%D9%84%20%D8%A7%D9%84%D8%A3%D9%88%D9%86%D9%84%D8%A7%D9%8A%D9%86%20%D9%83%D9%88%D8%B4%D8%AA%D9%86%D8%AC%F0%9F%92%AA"
       >
-        CONTACT US
-      </Button>
+        <Button
+          mt="1rem"
+          bg="brand"
+          size={["md", "md", "lg"]}
+          leftIcon={<BsWhatsapp />}
+        >
+          CONTACT US
+        </Button>
+      </a>
     </Stack>
   );
 };
