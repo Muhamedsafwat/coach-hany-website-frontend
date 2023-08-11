@@ -84,7 +84,7 @@ const MobileNav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
-  const { user } = useContext(UserInfo);
+  const { user, logout } = useContext(UserInfo);
 
   return (
     <>
@@ -130,7 +130,7 @@ const MobileNav = () => {
 
             {user && (
               <Box
-                onClick={() => logoutHandler(setIsLoading, logout, router)}
+                onClick={() => logoutHandler(logout, router)}
                 cursor="pointer"
                 transition=".3s"
                 _hover={{ bg: "rgba(200,50,50,0.6)" }}

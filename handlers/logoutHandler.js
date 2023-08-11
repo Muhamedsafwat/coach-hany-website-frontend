@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const logoutHandler = (setIsLoading, logout, router) => {
-  setIsLoading(true);
+const logoutHandler = (logout, router) => {
   axios
     .post(`${process.env.API_URL}/api/logout`)
     .then((res) => {
