@@ -81,6 +81,7 @@ const DesktopNav = () => {
 
 //mobile navbar
 const MobileNav = () => {
+  const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
