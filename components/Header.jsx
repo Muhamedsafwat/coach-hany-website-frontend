@@ -30,6 +30,7 @@ import {
 import { FiMenu } from "react-icons/fi";
 
 import { UserInfo } from "../authContext";
+import logoutHandler from "../handlers/logoutHandler";
 
 const Header = () => {
   const [mobileView] = useMediaQuery("(max-width: 900px)");
