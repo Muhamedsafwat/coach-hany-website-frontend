@@ -1,10 +1,13 @@
 import React from "react";
-import { Button, Text, Box } from "@chakra-ui/react";
+import { Button, Text, Box, Stack } from "@chakra-ui/react";
 import { BsWhatsapp } from "react-icons/bs";
 
 const RegisterNow = () => {
   return (
-    <Box
+    <Stack
+      align="center"
+      justify="center"
+      minH="500px"
       paddingBlock="5rem"
       textAlign="center"
       as="section"
@@ -22,10 +25,15 @@ const RegisterNow = () => {
       >
         WHERE HEALTH, BEAUTY AND FITNESS MEET.
       </Text>
-      <Button bg="brand" size={["md", "md", "lg"]} leftIcon={<BsWhatsapp />}>
+      <Button
+        mt="1rem"
+        bg="brand"
+        size={["md", "md", "lg"]}
+        leftIcon={<BsWhatsapp />}
+      >
         CONTACT US
       </Button>
-    </Box>
+    </Stack>
   );
 };
 

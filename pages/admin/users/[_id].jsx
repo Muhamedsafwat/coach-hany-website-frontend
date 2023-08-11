@@ -37,7 +37,7 @@ const UserDeatials = () => {
 
   const getData = () => {
     axios
-      .get(`http://localhost:5000/api/users/${id}`, {
+      .get(`${process.env.API_URL}/api/users/${id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -66,7 +66,7 @@ const UserDeatials = () => {
   const deleteAccount = () => {
     setDeleteLoading(true);
     axios
-      .delete(`http://localhost:5000/api/users/${id}`, {
+      .delete(`${process.env.API_URL}/api/users/${id}`, {
         withCredentials: true,
       })
       .then(() => {

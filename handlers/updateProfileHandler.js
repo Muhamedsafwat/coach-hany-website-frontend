@@ -23,7 +23,7 @@ const updateProfileHandler = (
   const measurements = [...currentMeasurements, newMeasurements];
   axios
     .put(
-      `http://localhost:5000/api/users/${_id}`,
+      `${process.env.API_URL}/api/users/${_id}`,
       { measurements },
       { withCredentials: true }
     )

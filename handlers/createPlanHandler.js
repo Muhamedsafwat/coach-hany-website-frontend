@@ -30,7 +30,7 @@ export const createPlan = (
   } else {
     axios
       .put(
-        `http://localhost:5000/api/plans/${id}`,
+        `${process.env.API_URL}/api//${id}`,
         { ...data, features },
         { withCredentials: true }
       )

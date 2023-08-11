@@ -27,7 +27,7 @@ const Plans = () => {
 
   const getPlans = async () => {
     axios
-      .get("http://localhost:5000/api/plans", { withCredentials: true })
+      .get(`${process.env.API_URL}/api/plans`, { withCredentials: true })
       .then((res) => {
         setPlans(res.data);
         setIsLoading(false);

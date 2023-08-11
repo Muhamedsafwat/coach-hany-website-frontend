@@ -42,7 +42,7 @@ const Profile = () => {
   //fetch user data function
   const getData = () => {
     axios
-      .get(`http://localhost:5000/api/users/${user._id}`, {
+      .get(`${process.env.API_URL}/api/users/${user._id}`, {
         withCredentials: true,
       })
       .then((res) => {

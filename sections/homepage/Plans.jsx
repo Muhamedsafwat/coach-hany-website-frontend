@@ -10,13 +10,19 @@ const Plans = () => {
   const [plans, setPlans] = useState();
 
   const getPlans = () => {
-    axios.get("http://localhost:5000/api/plans").then((res) => {
-      setPlans(res.data);
-    });
+    axios
+      .get(`${process.env.API_URL}/api/plans`)
+      .then((res) => {
+        setPlans(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
     getPlans();
+    //console.log(process.env.API_URL);
   }, []);
 
   return (

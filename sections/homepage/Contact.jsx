@@ -23,7 +23,7 @@ const Contact = () => {
 
 const Card = ({ icon, text }) => {
   return (
-    <Flex mt="-1rem" cursor="pointer" gap="1rem" align="center">
+    <Flex flex={1} mt="-1rem" cursor="pointer" gap="1rem" align="center">
       <Box
         transition=".3s"
         padding="1.1rem"

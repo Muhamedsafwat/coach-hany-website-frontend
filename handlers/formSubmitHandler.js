@@ -47,7 +47,7 @@ const formSubmitHandler = (
   };
 
   axios
-    .post("http://localhost:5000/api/applications", reqBody)
+    .post(`${process.env.API_URL}/api/applications`, reqBody)
     .then((res) => {
       sucess();
       setIsLoading(false);

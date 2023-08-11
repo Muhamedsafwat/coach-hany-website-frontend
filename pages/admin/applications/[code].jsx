@@ -36,7 +36,7 @@ const ApplicationDetails = () => {
 
   const getData = (code) => {
     axios
-      .get(`http://localhost:5000/api/applications/${code}`, {
+      .get(`${process.env.API_URL}/api/applications/${code}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -58,7 +58,7 @@ const ApplicationDetails = () => {
   const deleteHandler = () => {
     setDeleteLoading(true);
     axios
-      .delete(`http://localhost:5000/api/applications/${code}`, {
+      .delete(`${process.env.API_URL}/api/applications/${code}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -81,7 +81,7 @@ const ApplicationDetails = () => {
 
     axios
       .post(
-        `http://localhost:5000/api/users`,
+        `${process.env.API_URL}/api/users`,
         {
           code: data.code,
           password: data.password,

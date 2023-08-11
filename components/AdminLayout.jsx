@@ -55,7 +55,7 @@ const Header = ({ setIsLoading }) => {
     <Stack
       justify="space-between"
       align="center"
-      paddingInline="3rem"
+      paddingInline={["1vw", "1vw", "3vw"]}
       paddingBlock="1rem"
       direction="row"
       borderBottom="1px"

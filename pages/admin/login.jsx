@@ -66,7 +66,7 @@ const Login = () => {
     });
 
     api
-      .post("http://localhost:5000/api/admin/auth", data)
+      .post(`${process.env.API_URL}/api/admin/auth`, data)
       .then((res) => {
         login(res.data);
         router.push("/admin");

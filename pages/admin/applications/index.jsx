@@ -23,7 +23,7 @@ const Applications = () => {
 
   const getApplications = async () => {
     axios
-      .get("http://localhost:5000/api/applications", { withCredentials: true })
+      .get(`${process.env.API_URL}/api/applications`, { withCredentials: true })
       .then((res) => {
         setApplications(res.data);
         setIsLoading(false);

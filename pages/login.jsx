@@ -66,7 +66,7 @@ const Login = () => {
   const onSubmit = (data) => {
     setIsLoading(true);
     axios
-      .post("http://localhost:5000/api/users/auth", data, {
+      .post(`${process.env.API_URL}/api/users/auth`, data, {
         withCredentials: true,
       })
       .then((res) => {

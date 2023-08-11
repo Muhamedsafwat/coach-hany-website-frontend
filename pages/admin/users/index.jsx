@@ -24,7 +24,7 @@ const Users = () => {
 
   const getUsers = async () => {
     axios
-      .get("http://localhost:5000/api/users", { withCredentials: true })
+      .get(`${process.env.API_URL}/api/users`, { withCredentials: true })
       .then((res) => {
         setUsers(res.data);
         setIsLoading(false);
