@@ -31,6 +31,7 @@ import adminLoginValidator from "../../validators/adminLoginValidator";
 import { UserInfo } from "../../authContext";
 
 const Login = () => {
+  const router = useRouter();
   //user context
   const { user, login } = useContext(UserInfo);
 
@@ -57,7 +58,6 @@ const Login = () => {
 
   //form submit handler
   const toast = useToast();
-  const router = useRouter();
 
   const onSubmit = (data) => {
     setIsLoading(true);

@@ -35,6 +35,7 @@ import { UserInfo } from "../authContext";
 import Loading from "../components/Loading";
 
 const Login = () => {
+  const router = useRouter();
   //user context
   const { user, login } = useContext(UserInfo);
 
@@ -61,7 +62,6 @@ const Login = () => {
 
   //form submit handler
   const toast = useToast();
-  const router = useRouter();
 
   const onSubmit = (data) => {
     setIsLoading(true);
