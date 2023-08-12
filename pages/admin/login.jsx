@@ -38,7 +38,7 @@ const Login = () => {
   //redirect if user logged in
   useEffect(() => {
     if (user) {
-      router.push("/admin");
+      router.push("/");
     }
   }, [user, router]);
 
