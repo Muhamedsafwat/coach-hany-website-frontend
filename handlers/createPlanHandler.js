@@ -15,7 +15,7 @@ export const createPlan = (
   if (method == "post") {
     axios
       .post(
-        "http://localhost:5000/api/plans",
+        `${process.env.API_URL}/api/plans`,
         { ...data, features },
         { withCredentials: true }
       )
@@ -30,7 +30,7 @@ export const createPlan = (
   } else {
     axios
       .put(
-        `${process.env.API_URL}/api//${id}`,
+        `${process.env.API_URL}/api/${id}`,
         { ...data, features },
         { withCredentials: true }
       )
