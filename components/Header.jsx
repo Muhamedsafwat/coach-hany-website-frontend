@@ -196,7 +196,7 @@ const SocialIcon = ({ props }) => {
         _hover={{ color: "brand", textDecoration: "none" }}
         variant="link"
       >
-        <a href={props.link}>
+        <a target="_blank" href={props.link}>
           <Icon boxSize={5} as={props.icon} />
         </a>
       </Button>
@@ -216,15 +216,15 @@ const links = [
 //mobile navbar links
 const userLinks = [
   { label: "Home", path: "/", icon: <AiOutlineHome /> },
-  { label: "Services", path: "#services", icon: <AiOutlineDollar /> },
-  { label: "Contact", path: "#contact", icon: <AiOutlinePhone /> },
+  { label: "Services", path: "/#services", icon: <AiOutlineDollar /> },
+  { label: "Contact", path: "/#contact", icon: <AiOutlinePhone /> },
   { label: "Profile", path: "/profile", icon: <AiOutlineUser /> },
 ];
 
 //social media links
 const socialLinks = [
-  { icon: BsFacebook, link: "facebook.com" },
-  { icon: BsInstagram, link: "facebook.com" },
+  { icon: BsFacebook, link: "https://www.facebook.com/eldon.hytham" },
+  { icon: BsInstagram, link: "https://www.instagram.com/eldon_hany_7/" },
   { icon: BsTwitter, link: "facebook.com" },
 ];
 
