@@ -75,17 +75,26 @@ const ListItem = ({ code, name, _id, target }) => {
       fontWeight="bold"
       bg="#222"
       padding="1rem"
-      paddingInline="2rem"
+      paddingInline={["1rem", "2rem"]}
       borderRadius={10}
       justify="space-between"
-      align="center"
-      spacing="1rem"
+      gap="1rem"
+      fontSize={["sm", "md"]}
+      direction={["column", null, "row"]}
+      align={["flex-start", null, "center"]}
     >
       <Text>{name}</Text>
 
-      <Flex justify="space-between" width="40%" align="center">
-        <Text>#{code}</Text>
-        <Text>{target}</Text>
+      <Flex
+        justify={["space-between", "flex-end"]}
+        width={["100%", null, "50%"]}
+        align="center"
+        gap="1rem"
+      >
+        <Flex align="center" gap="1rem">
+          <Text>#{code}</Text>
+          <Text display={["none", null, "inline"]}>{target}</Text>
+        </Flex>
         <Flex gap="1rem">
           <Link href={`/admin/users/${_id}`}>
             <Button size="sm" bg="brand">
