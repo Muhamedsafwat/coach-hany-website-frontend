@@ -79,7 +79,10 @@ const Login = () => {
       .catch((err) => {
         console.log(err);
         toast({
-          title: "Network error",
+          title:
+            err.response.status == 401
+              ? "Invalid code or password"
+              : "Network error",
           status: "error",
           duration: 5000,
           isClosable: true,
