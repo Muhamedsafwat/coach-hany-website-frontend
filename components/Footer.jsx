@@ -16,11 +16,13 @@ const Footer = () => {
       right="0"
     >
       <Text fontSize=".9rem">
-        Copyright ©2023 All rights reserved | This template is made with by
+        Copyright ©2023 All rights reserved | This website is made by
+        <a target="_blank" href="https://github.com/Muhamedsafwat/">
         <Text cursor="pointer" as="span" color="brand">
           {" "}
           Muhamed Safwat
         </Text>
+          </a>
       </Text>
     </Box>
   );
