@@ -82,8 +82,25 @@ const Register = () => {
 
   //form submit handler
   const onSubmit = (data) => {
-    formSubmitHandler(data, bodyImg, analysisImg, setIsLoading, success, error);
-    router.push("/");
+    if (!bodyImg) {
+      toast({
+        title: "No photo provided",
+        description: "please provide a recent body photo",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      formSubmitHandler(
+        data,
+        bodyImg,
+        analysisImg,
+        setIsLoading,
+        success,
+        error
+      );
+      router.push("/");
+    }
   };
 
   return (
