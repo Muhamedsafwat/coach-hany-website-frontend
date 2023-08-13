@@ -6,6 +6,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Textarea,
   Button,
   FormErrorMessage,
   Radio,
@@ -287,7 +288,7 @@ const Register = () => {
             error={errors.preferredFood}
             label={"اكلات حابب متكونش موجودة في الدايت"}
           >
-            <Input
+            <Textarea
               {...register("preferredFood")}
               variant="flushed"
               type="text"
@@ -300,7 +301,7 @@ const Register = () => {
             error={errors.unpreferredFood}
             label={"اكلات حابب تكون موجودة الدايت"}
           >
-            <Input
+            <Textarea
               {...register("unpreferredFood")}
               variant="flushed"
               type="text"

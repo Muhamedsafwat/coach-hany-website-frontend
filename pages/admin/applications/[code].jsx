@@ -7,6 +7,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Textarea,
   Button,
   SimpleGrid,
   useToast,
@@ -271,7 +272,7 @@ const ApplicationDetails = () => {
               />
             </StyledFormControl>
             <StyledFormControl label={"اكلات حابب متكونش موجودة في الدايت"}>
-              <Input
+              <Textarea
                 readOnly
                 value={data.preferredFood}
                 variant="flushed"
@@ -279,7 +280,7 @@ const ApplicationDetails = () => {
               />
             </StyledFormControl>
             <StyledFormControl label={"اكلات حابب تكون موجودة الدايت"}>
-              <Input
+              <Textarea
                 readOnly
                 value={data.unpreferredFood}
                 variant="flushed"
