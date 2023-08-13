@@ -6,7 +6,7 @@ export default class Document extends NextDocument {
     return (
       <Html lang="en">
         <Head />
-        <body>
+        <body style={{ scrollBehavior: "smooth" }}>
           <ColorModeScript initialColorMode="dark" />
           <Main />
           <NextScript />

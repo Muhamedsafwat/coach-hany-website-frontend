@@ -7,7 +7,6 @@ import {
   useToast,
   Button,
   Flex,
-  Divider,
 } from "@chakra-ui/react";
 import axios from "axios";
 import Link from "next/link";
@@ -76,17 +75,23 @@ const ListItem = ({ code, name, duration, target }) => {
       fontWeight="bold"
       bg="#222"
       padding="1rem"
-      paddingInline="2rem"
+      paddingInline={["1rem", "2rem"]}
       borderRadius={10}
       justify="space-between"
       align="center"
       spacing="1rem"
+      fontSize={["sm", "md"]}
     >
       <Text>{name}</Text>
 
-      <Flex justify="space-between" width="40%" align="center">
-        <Text>#{code}</Text>
-        <Text>{duration + " "}months</Text>
+      <Flex
+        gap={["1rem", null, "2rem"]}
+        justify="flex-end"
+        width={["40%", null, "50%"]}
+        align="center"
+      >
+        <Text display={["none", "none", "inline"]}>#{code}</Text>
+        <Text display={["none", "none", "inline"]}>{duration + " "}months</Text>
         <Text>{target}</Text>
         <Link href={`/admin/applications/${code}`}>
           <Button size="sm" bg="brand">
