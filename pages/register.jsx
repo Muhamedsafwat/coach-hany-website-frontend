@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   Stack,
   Heading,
@@ -24,28 +24,58 @@ import applicationFormValidator from "../validators/applicationFormValidator";
 import formSubmitHandler from "../handlers/formSubmitHandler";
 
 const Register = () => {
-  const router = useRouter("/");
+  //feedback
+  const toast = useToast();
+  const router = useRouter();
   //loading state
   const [isLoading, setIsLoading] = useState(false);
+
+  //file input refs
+  const photoInput = useRef();
+  const analysisInput = useRef();
 
   //convert images to base64
   const [bodyImg, setBodyImg] = useState("");
   const [analysisImg, setAnalysisImg] = useState("");
 
+  const acceptedFileTypes = ["image/png", "image/jpg"];
+
   const onPhotoChange = (file) => {
-    const photoReader = new FileReader();
-    photoReader.onloadend = (e) => {
-      setBodyImg(photoReader.result);
-    };
-    photoReader.readAsDataURL(file);
+    if (acceptedFileTypes.includes(file.type)) {
+      const photoReader = new FileReader();
+      photoReader.onloadend = (e) => {
+        setBodyImg(photoReader.result);
+      };
+      photoReader.readAsDataURL(file);
+    } else {
+      toast({
+        title: "Invalid image",
+        description: "Please provide only jpg and png image files",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      photoInput.current.value = null;
+    }
   };
 
   const onAnalysisChange = (file) => {
-    const photoReader = new FileReader();
-    photoReader.onloadend = (e) => {
-      setAnalysisImg(photoReader.result);
-    };
-    photoReader.readAsDataURL(file);
+    if (acceptedFileTypes.includes(file.type)) {
+      const photoReader = new FileReader();
+      photoReader.onloadend = (e) => {
+        setAnalysisImg(photoReader.result);
+      };
+      photoReader.readAsDataURL(file);
+    } else {
+      toast({
+        title: "Invalid image",
+        description: "Please provide only jpg and png image files",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      analysisInput.current.value = null;
+    }
   };
 
   //form validation
@@ -57,9 +87,6 @@ const Register = () => {
   } = useForm({
     resolver: yupResolver(applicationFormValidator),
   });
-
-  //feedback
-  const toast = useToast();
 
   const success = () => {
     toast({
