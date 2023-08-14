@@ -38,7 +38,7 @@ const Register = () => {
   const [bodyImg, setBodyImg] = useState("");
   const [analysisImg, setAnalysisImg] = useState("");
 
-  const acceptedFileTypes = ["image/png", "image/jpg"];
+  const acceptedFileTypes = ["image/png", "image/jpg", "image/jpeg"];
 
   const onPhotoChange = (file) => {
     if (acceptedFileTypes.includes(file.type)) {
@@ -60,6 +60,7 @@ const Register = () => {
   };
 
   const onAnalysisChange = (file) => {
+    console.log(file.type);
     if (acceptedFileTypes.includes(file.type)) {
       const photoReader = new FileReader();
       photoReader.onloadend = (e) => {

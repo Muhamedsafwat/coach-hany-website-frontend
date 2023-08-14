@@ -19,7 +19,6 @@ const schema = yup.object().shape({
   thigh: yup.number().required(),
   preferredFood: yup.string().required(),
   unpreferredFood: yup.string().required(),
-  photo: yup.mixed().required(),
 });
 
 export default schema;
