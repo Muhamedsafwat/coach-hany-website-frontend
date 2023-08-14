@@ -346,6 +346,7 @@ const Register = () => {
               variant="flushed"
               mt="5px"
               type="file"
+              accept=".png, .jpg"
             />
           </StyledFormControl>
           <StyledFormControl label={"اي ملحوظة حابب تضيفها"}>
@@ -361,6 +362,7 @@ const Register = () => {
               variant="flushed"
               mt="5px"
               type="file"
+              accept=".png, .jpg"
             />
             {errors.photo && (
               <FormErrorMessage>Required field</FormErrorMessage>
