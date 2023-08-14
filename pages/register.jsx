@@ -369,6 +369,7 @@ const Register = () => {
           <StyledFormControl label={"اي تحاليل طبية خلال اخر 3 شهور"}>
             <Input
               {...register("analysis")}
+              ref={analysisInput}
               onChange={(e) => onAnalysisChange(e.target.files[0])}
               variant="flushed"
               mt="5px"
@@ -385,6 +386,7 @@ const Register = () => {
           >
             <Input
               {...register("photo")}
+              ref={photoInput}
               onChange={(e) => onPhotoChange(e.target.files[0])}
               variant="flushed"
               mt="5px"
